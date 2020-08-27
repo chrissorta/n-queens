@@ -218,12 +218,61 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function (minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+
+      var board = this.rows();
+      //create a var colIndex where col = board length - 1;
+      var colIndex = board.length - 1;
+      //create a var for rowIndex where row = input - baord.length + 1;
+      var rowIndex = minorDiagonalColumnIndexAtFirstRow - board.length + 1;
+      // length = board * 2 - length - input - 1
+      var length = 2 * board.length - minorDiagonalColumnIndexAtFirstRow - 1;
+      //if input < board.length
+      if (minorDiagonalColumnIndexAtFirstRow < board.length) {
+        // assign row index to 0
+        rowIndex = 0;
+        // assign col index to input
+        colIndex = minorDiagonalColumnIndexAtFirstRow;
+        // assign length to input + 1
+        length = minorDiagonalColumnIndexAtFirstRow + 1;
+      }
+      //create a count var
+      var count = 0;
+      //loop over the board starting from 0 until board.length-Math.abs(majorDiagonalColumnIndexAtFirstRow)
+      for (var i = 0; i < length; i++) {
+        //  if the board[rowIndex][colIndex] === 1, increment the count
+        if (board[rowIndex][colIndex] === 1) {
+          count++;
+        }
+        if (count > 1) {
+          //  if count > 1
+          //    return true;
+          return true;
+        }
+        //  increment rowIndex and colIndex
+        rowIndex++;
+        colIndex--;
+      }
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function () {
-      return false; // fixme
+      // set starting index = negative board length + 1
+      var index = 0;
+      var length = this.rows().length * 2 - 1;
+      // while loop until starting index < board.length
+      while (index < length) {
+        // check if index in hasMajorDiagonalConflictAt true
+        if (this.hasMinorDiagonalConflictAt(index)) {
+          //  return true
+          return true;
+        }
+
+        //increment index
+        index++;
+        //end of loop
+      }
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
