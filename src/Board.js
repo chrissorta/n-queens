@@ -119,14 +119,8 @@
     hasColConflictAt: function (colIndex) {
       // get the board
       var board = this.rows();
-      // create column variable
-      var columns = [];
       // create counter variable
       var count = 0;
-      // iterate over every row[colindex];
-      // for (var i = 0; i < board.length; i++) {
-      //   columns.push(board[i][colIndex]);
-      // }
       // iterate over column array
       for (var i = 0; i < board.length; i++) {
         // if find 1
@@ -165,12 +159,56 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function (majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      //create a board var
+      var board = this.rows();
+      //create a var colIndex;
+      var colIndex = majorDiagonalColumnIndexAtFirstRow;
+      //create a var for rowIndex;
+      var rowIndex = 0;
+      //if majorDiagonalColumnIndexAtFirstRow < 0
+      if (majorDiagonalColumnIndexAtFirstRow < 0) {
+        //  assign rowIndex to Math.abs(majorDiagonalColumnIndexAtFirstRow)
+        rowIndex = Math.abs(majorDiagonalColumnIndexAtFirstRow);
+        //assign colIndex to 0
+        colIndex = 0;
+      }
+      //create a count var
+      var count = 0;
+      //loop over the board starting from 0 until board.length-Math.abs(majorDiagonalColumnIndexAtFirstRow)
+      for (var i = 0; i < board.length - Math.abs(majorDiagonalColumnIndexAtFirstRow); i++) {
+        //  if the board[rowIndex][colIndex] === 1, increment the count
+        if (board[rowIndex][colIndex] === 1) {
+          count++;
+        }
+        if (count > 1) {
+          //  if count > 1
+          //    return true;
+          return true;
+        }
+        //  increment rowIndex and colIndex
+        rowIndex++;
+        colIndex++;
+      }
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function () {
-      return false; // fixme
+      // set starting index = negative board length + 1
+      var index = this.rows().length * -1 + 1;
+      // while loop until starting index < board.length
+      while (index < this.rows().length) {
+        // check if index in hasMajorDiagonalConflictAt true
+        if (this.hasMajorDiagonalConflictAt(index)) {
+          //  return true
+          return true;
+        }
+
+        //increment index
+        index++;
+        //end of loop
+      }
+      return false;
     },
 
 
