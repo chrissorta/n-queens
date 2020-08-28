@@ -96,12 +96,8 @@ window.findNQueensSolution = function (n) {
     //   base case if board has n pieces
     if (pieceCount === n) {
       //     increment solution count
-      // debugger;
       solution = currentBoard.rows();
-      solution = solution.slice();
       hitTheBaseCase = true;
-
-      console.log('base case solution, ', solution);
       return solution;
     }
     //   recursive case
@@ -115,24 +111,19 @@ window.findNQueensSolution = function (n) {
         } else {
           //      run helper function on current board, pieceCount +1, rowCount + 1;
           helper(currentBoard, pieceCount + 1, row + 1);
-          console.log('current Board, ', currentBoard);
-          console.log( 'board, ', board);
-          console.log('solution', solution);
           if (hitTheBaseCase) { return; }
           currentBoard.rows()[row][col] = 0;
 
         }
       }
     }
-    console.log('solution =, ', solution);
   };
 
   // run the helper function on the empty board
-  debugger;
   helper(board, 0, 0);
 
   console.log('Single solution for ' + n + ' queens:', solution);
-  console.log(solution);
+
   if (!solution) {
     return board.rows();
   }
